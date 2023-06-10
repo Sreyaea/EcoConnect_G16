@@ -1,0 +1,61 @@
+.login {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+    width:100%;
+    background-color: black;
+  }
+  
+  .Form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 100%;
+    color: white;
+   
+  }
+  
+  input[type="text"],
+  input[type="password"] {
+    width: 30%;
+    height: 3rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 2px solid green;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+  }
+  label{
+    color:antiquewhite;
+  }
+  button {
+    background: linear-gradient(to right, #39b54a, #006837);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  
+  .simage {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: aliceblue;
+    text-align: center;
+    
+  }
+  
+  .simage img {
+    width: 100%;
+    margin-top: 40px;
+    height: 70%;
+    margin-bottom: 1rem;
+  }
