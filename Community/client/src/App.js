@@ -58,7 +58,7 @@ function App() {
                 </>
               ) : (
                 <>
-                  <Link to="/community"> Community</Link>
+                  <Link to="/"> Community</Link>
                 </>
               )}
             </div>
