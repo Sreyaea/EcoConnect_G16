@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import { AuthContext } from "../helpers/AuthContext";
+import { AuthContext } from "../helpers/AuthContext"
 
 function CreatePost() {
   const { authState } = useContext(AuthContext);

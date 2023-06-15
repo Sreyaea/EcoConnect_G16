@@ -28,7 +28,7 @@ function Registration() {
   };
 
   return (
-    <div className="signup">
+    <div className="signup-registration">
       <div className="simage">
         <img src={earth} alt="EARTH" />
         <h4>For a planet worth living on ... </h4>

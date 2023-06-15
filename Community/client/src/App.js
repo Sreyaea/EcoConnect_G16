@@ -3,15 +3,15 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import Community from "./pages/Community";
 import CreatePost from "./pages/CreatePost";
 import Post from "./pages/Post";
-import Registration from "./pages/Registration";
-import Login from "./pages/Login";
+import Registration from "./pages/Registration.js";
+import Login from "./pages/Login.js";
 import PageNotFound from "./pages/PageNotFound";
 import Profile from "./pages/Profile";
 import ChangePassword from "./pages/ChangePassword";
-
 import { AuthContext } from "./helpers/AuthContext";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Home from './pages/Home.js';
 
 function App() {
   const [authState, setAuthState] = useState({
@@ -58,8 +58,7 @@ function App() {
                 </>
               ) : (
                 <>
-                  <Link to="/"> Community</Link>
-                  <Link to="/createpost"> Create A Post</Link>
+                  <Link to="/community"> Community</Link>
                 </>
               )}
             </div>
@@ -69,6 +68,7 @@ function App() {
             </div>
           </div>
           <Switch>
+            {/*<Route path='/' element={<Home/>} />*/}
             <Route path="/" exact component={Community} />
             <Route path="/createpost" exact component={CreatePost} />
             <Route path="/post/:id" exact component={Post} />

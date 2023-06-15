@@ -1,9 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import { AuthContext } from "../helpers/AuthContext";
+import "./CreatePost.js";
+import LeftBar from "../components/leftBar/leftBar.js";
 
 function Community() {
   const [listOfPosts, setListOfPosts] = useState([]);
@@ -38,8 +40,8 @@ function Community() {
         { headers: { accessToken: localStorage.getItem("accessToken") } }
       )
       .then((response) => {
-        setListOfPosts(
-          listOfPosts.map((post) => {
+        setListOfPosts((prevPosts) => {
+          return prevPosts.map((post) => {
             if (post.id === postId) {
               if (response.data.liked) {
                 return { ...post, Likes: [...post.Likes, 0] };
@@ -48,26 +50,35 @@ function Community() {
                 likesArray.pop();
                 return { ...post, Likes: likesArray };
               }
-            } else {
-              return post;
             }
-          })
-        );
+            return post;
+          });
+        });
 
-        if (likedPosts.includes(postId)) {
-          setLikedPosts(
-            likedPosts.filter((id) => {
-              return id != postId;
-            })
-          );
-        } else {
-          setLikedPosts([...likedPosts, postId]);
-        }
+        setLikedPosts((prevLikedPosts) => {
+          if (prevLikedPosts.includes(postId)) {
+            return prevLikedPosts.filter((id) => id !== postId);
+          } else {
+            return [...prevLikedPosts, postId];
+          }
+        });
       });
+  };
+
+  const handleCreatePost = () => {
+    history.push("/createpost");
   };
 
   return (
     <div>
+      <div className="sidebar-container">
+      <LeftBar />
+      <div className="sidebar-button">
+        <button onClick={handleCreatePost}>+</button>
+      </div>
+      
+      </div>
+     
       {listOfPosts.map((value, key) => {
         return (
           <div key={key} className="post">
@@ -82,7 +93,7 @@ function Community() {
             </div>
             <div className="footer">
               <div className="username">
-                <Link to={`/profile/${value.UserId}`}> {value.username} </Link>
+                <Link to={`/profile/${value.UserId}`}>{value.username}</Link>
               </div>
               <div className="buttons">
                 <ThumbUpAltIcon
@@ -93,13 +104,14 @@ function Community() {
                     likedPosts.includes(value.id) ? "unlikeBttn" : "likeBttn"
                   }
                 />
-
                 <label> {value.Likes.length}</label>
               </div>
             </div>
           </div>
         );
       })}
+
+      
     </div>
   );
 }

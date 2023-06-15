@@ -29,7 +29,7 @@ function Login() {
   };
 
   return (
-    <div className="login">
+    <div className="login-login">
       <div className="simage">
         <img src={earth} alt="EARTH" />
         <h4>For a planet worth living on ... </h4>
@@ -50,10 +50,9 @@ function Login() {
           }}
         />
         <button onClick={login}>Login</button>
-        <label>Or</label>
-        <Link to="/registration">
-          <button>Registration</button>
-        </Link>
+        <div className="registerText">
+        <Link to="/registration">Didn't register yet?Register</Link>
+        </div>
       </div>
     </div>
   );

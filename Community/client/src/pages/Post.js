@@ -2,6 +2,8 @@ import React, { useEffect, useState, useContext } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../helpers/AuthContext";
+import chaticon from "../assets/chaticon.png";
+import { Image, Container, Row, Col, Button } from "react-bootstrap";
 
 function Post() {
   let { id } = useParams();
@@ -9,6 +11,7 @@ function Post() {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const { authState } = useContext(AuthContext);
+  //const [showCommentField, setShowCommentField] = useState(false);
 
   let history = useHistory();
 
@@ -105,47 +108,45 @@ function Post() {
       setPostObject({ ...postObject, postText: newPostText });
     }
   };
-
+  
   return (
     <div className="postPage">
-      <div className="leftSide">
-        <div className="post" id="individual">
-          <div
-            className="title"
-            onClick={() => {
-              if (authState.username === postObject.username) {
-                editPost("title");
-              }
-            }}
-          >
-            {postObject.title}
-          </div>
-          <div
-            className="body"
-            onClick={() => {
-              if (authState.username === postObject.username) {
-                editPost("body");
-              }
-            }}
-          >
-            {postObject.postText}
-          </div>
-          <div className="footer">
-            {postObject.username}
-            {authState.username === postObject.username && (
-              <button
-                onClick={() => {
-                  deletePost(postObject.id);
-                }}
-              >
-                {" "}
-                Delete Post
-              </button>
-            )}
-          </div>
+      <div className="post" id="individual">
+        <div
+          className="title"
+          onClick={() => {
+            if (authState.username === postObject.username) {
+              editPost("title");
+            }
+          }}
+        >
+          {postObject.title}
+        </div>
+        <div
+          className="body"
+          onClick={() => {
+            if (authState.username === postObject.username) {
+              editPost("body");
+            }
+          }}
+        >
+          {postObject.postText}
+        </div>
+        <div className="footer">
+          {postObject.username}
+          {authState.username === postObject.username && (
+            <button
+              className="deletePostButton"
+              onClick={() => {
+                deletePost(postObject.id);
+              }}
+            >
+              X
+            </button>
+          )}
         </div>
       </div>
-      <div className="rightSide">
+      <div className="commentsSection">
         <div className="addCommentContainer">
           <input
             type="text"
@@ -156,14 +157,18 @@ function Post() {
               setNewComment(event.target.value);
             }}
           />
-          <button onClick={addComment}> Add Comment</button>
+          <button onClick={addComment}>
+           <Image className="button-icon" src={chaticon} fluid />
+          </button>
         </div>
         <div className="listOfComments">
           {comments.map((comment, key) => {
             return (
               <div key={key} className="comment">
                 {comment.commentBody}
-                <label> Username: {comment.username}</label>
+                {authState.username === comment.username ? (
+                  <label>{'~' + comment.username}</label>
+                ) : null}
                 {authState.username === comment.username && (
                   <button
                     onClick={() => {
